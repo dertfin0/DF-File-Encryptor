@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\.dfe2]
+@="DFEv2_Encrypted_File"
+
+[HKEY_CLASSES_ROOT\DFEv2_Encrypted_File]
+@="DFE v2 Encrypted File"
