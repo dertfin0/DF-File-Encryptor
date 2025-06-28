@@ -3,10 +3,7 @@ package ru.dfhub.dfe.encryption;
 import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
 import org.bouncycastle.crypto.params.Argon2Parameters;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -16,7 +13,6 @@ import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.Key;
-import java.security.NoSuchAlgorithmException;
 
 public class AES {
 
