@@ -1,6 +1,9 @@
 package ru.dfhub.dfe.encryption;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -80,10 +83,14 @@ public class RSA {
      *
      * @param file File
      * @param privateKey Private key, should be in same pair with public key used for {@code RSA.encrypt()}
-     * @throws GeneralSecurityException File not encrypted or damaged
      * @throws IOException File read/write exceptions
+     * @throws NoSuchPaddingException Encryption error, should not arise at this stage
+     * @throws NoSuchAlgorithmException Encryption error, should not arise at this stage
+     * @throws InvalidKeyException Wrong password
+     * @throws IllegalBlockSizeException File is damaged
+     * @throws BadPaddingException Wrong password
      */
-    public static void decrypt(File file, Key privateKey) throws GeneralSecurityException, IOException {
+    public static void decrypt(File file, Key privateKey) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Cipher rsa = Cipher.getInstance("RSA");
         rsa.init(Cipher.DECRYPT_MODE, privateKey);
 
