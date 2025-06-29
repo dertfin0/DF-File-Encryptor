@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("application")
+    id("com.gradleup.shadow") version "9.0.0-beta17"
 }
 
 group = "ru.dfhub.dfe"
@@ -19,3 +20,9 @@ tasks.jar {
         attributes["Main-Class"] = "ru.dfhub.dfe.Main"
     }
 }
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
+}
+
+setProperty("mainClassName", "ru.dfhub.dfe.Main")
