@@ -2,11 +2,15 @@ package ru.dfhub.dfe;
 
 import ru.dfhub.dfe.encryption.AES;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.security.KeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Scanner;
 
@@ -47,7 +51,7 @@ public class Main {
             file = InitCheck.requestAesFile(mode);
             password = InitCheck.requestAesPassword();
         } catch (Exception e) {
-            System.out.println("Selected mode not found!");
+            System.out.println(e.getMessage());
             return;
         }
 
@@ -71,10 +75,14 @@ public class Main {
             case DECRYPT -> {
                 try {
                     AES.decrypt(file, AES.getKey(password, file));
-                } catch (GeneralSecurityException e) {
+                } catch (IllegalBlockSizeException e) {
                     System.out.println("File is damaged or invalid!");
                 } catch (IOException e) {
                     System.out.println("An error occurred reading/writing file: ".concat(e.getMessage()));
+                } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+                    System.out.println("An unknown error has occurred!");
+                } catch (KeyException | BadPaddingException e) {
+                    System.out.println("Password is not correct!");
                 }
             }
         }

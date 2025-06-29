@@ -3,17 +3,17 @@ package ru.dfhub.dfe.encryption;
 import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
 import org.bouncycastle.crypto.params.Argon2Parameters;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.GeneralSecurityException;
-import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.KeyException;
+import java.security.*;
 
 public class AES {
 
@@ -88,10 +88,14 @@ public class AES {
      * Decrypt encrypted file
      * @param file File with {@code .dfe2} extension
      * @param key Encryption key
-     * @throws GeneralSecurityException File not encrypted or damaged
      * @throws IOException File read/write exceptions
+     * @throws NoSuchPaddingException Encryption error, should not arise at this stage
+     * @throws NoSuchAlgorithmException Encryption error, should not arise at this stage
+     * @throws InvalidKeyException Wrong password
+     * @throws IllegalBlockSizeException File is damaged
+     * @throws BadPaddingException Wrong password
      */
-    public static void decrypt(File file, Key key) throws GeneralSecurityException, IOException {
+    public static void decrypt(File file, Key key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Cipher aes = Cipher.getInstance("AES");
         aes.init(Cipher.DECRYPT_MODE, key);
 

@@ -27,13 +27,13 @@ public class InitCheck {
     public static File requestAesFile(MODE mode) throws Exception {
         System.out.print(mode == MODE.ENCRYPT ?
                 "File path: " :
-                ".dfe file path: "
+                ".dfe2 file path: "
         );
 
         File file = new File(Main.SCANNER.nextLine());
         if (!file.exists()) throw new Exception("File not exists!");
 
-        if (mode == MODE.DECRYPT && !file.getName().endsWith(".dfe")) throw new Exception("Not a .dfe file!");
+        if (mode == MODE.DECRYPT && !file.getName().endsWith(".dfe2")) throw new Exception("Not a .dfe2 file!");
         return file;
     }
 
