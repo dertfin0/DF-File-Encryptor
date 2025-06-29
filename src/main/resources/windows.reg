@@ -5,3 +5,9 @@ Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\DFEv2_Encrypted_File]
 @="DFE v2 Encrypted File"
+
+[HKEY_CLASSES_ROOT\.dfe2r]
+@="DFEv2_Encrypted_File_RSA"
+
+[HKEY_CLASSES_ROOT\DFEv2_Encrypted_File_RSA]
+@="DFE v2 Encrypted File (RSA)"
