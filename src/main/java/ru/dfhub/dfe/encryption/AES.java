@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.Key;
+import java.security.KeyException;
 
 public class AES {
 
@@ -45,13 +46,17 @@ public class AES {
      * @param encryptedFile Encrypted file
      * @return AES Encryption key
      */
-    public static Key getKey(String password, File encryptedFile) throws Exception {
-        byte[] salt = new byte[16];
-        try (FileInputStream fis = new FileInputStream(encryptedFile)) {
-            fis.read(salt);
-        }
+    public static Key getKey(String password, File encryptedFile) throws KeyException {
+        try {
+            byte[] salt = new byte[16];
+            try (FileInputStream fis = new FileInputStream(encryptedFile)) {
+                fis.read(salt);
+            }
 
-        return getKey(password, salt);
+            return getKey(password, salt);
+        } catch (Exception e) {
+            throw new KeyException();
+        }
     }
 
     /**
